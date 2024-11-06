@@ -3,6 +3,7 @@ def seleccionar_opcion_menu():
     opciones_menu = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     descripciones_menu = ['Cargar nueva venta', 'Mostrar productos por categoría', 'Mostrar ventas por día', 'Mostrar total ingresos', 'Mostrar total productos vendidos', 'Mostrar promedio de ingreso por día', 'Salir'] # eliminar venta?, modificar venta?
 
+
     for i in range(len(opciones_menu)):
         print(f'{opciones_menu[i]}: {descripciones_menu[i]}')
 
