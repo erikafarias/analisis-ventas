@@ -101,16 +101,64 @@ def mostrar_productos_por_categoria(ventas):
         cantidad = calcular_productos_por_categoria(ventas, categoria)
         print(f'La cantidad de productos vendidos para la categoría de {categoria} es: {cantidad}')
 
-
 # Función para obtener el total de los ingresos 
 def calcular_total_ingresos(ventas):
     total = 0
     for venta in ventas:
-        precio = venta[2]
-        cantidad = venta[3]
+        precio = venta[3]
+        cantidad = venta[4]
         total += precio * cantidad
         
     print(f"------------------------------------ \nTotal de ingresos generados: {total}")
+
+def filtrar_dias(ventas):
+    lista_dias = []
+    for venta in ventas:
+        if venta[5] not in lista_dias:
+            lista_dias.append(venta[5])
+    return lista_dias
+
+def filtrar_ventas_por_dia(ventas, dias):
+    lista_ventas = []
+    for i in range(len(dias)):
+        lista_ventas.append([])
+        for venta in ventas:
+            if venta[5] == dias[i]:
+                lista_ventas[i].append(venta)
+    return lista_ventas
+
+def imprimir_ventas(lista_ventas):
+    for venta in lista_ventas:
+        print('   **********')
+        print(f'   Id de la venta: {venta[0]}')
+        print(f'   Código del producto: {venta[1]}')
+        print(f'   Categoría: {venta[2]}')
+        print(f'   Precio: {venta[3]}')
+        print(f'   Cantidad: {venta[4]}')
+
+def mostrar_ventas_por_dia(ventas):
+    print(f"------------------------------------ \nVentas por día")
+    opcion = input('¿Qúe desea hacer? \n1- Consultar todas las ventas por día\n2- Consultar ventas de un día en específico\nIngresar opción deseada (1 o 2): ' )
+    while not (opcion == '1' or opcion == '2'):
+        opcion = input('Ingrese una opción válida: ')
+    
+    if opcion == '1':
+        dias = filtrar_dias(ventas)
+    else: 
+        dia = input('Ingrese una fecha (en formato dd-mm-aaaa): ')
+        while not validar_fecha(dia):
+            dia = input('Ingrese una fecha (en formato dd-mm-aaaa): ')
+        dias = [dia]
+    
+    ventas_por_dia = filtrar_ventas_por_dia(ventas, dias)
+    for i in range(len(dias)):
+        if len(ventas_por_dia[i])>0:
+            print('---------------------')
+            print(f'Día: {dias[i]}')
+            print(f'Ventas: ')
+            imprimir_ventas(ventas_por_dia[i])
+        else: 
+            print('No hay ventas para la fecha ingresada.')
 
 def main():
     # id de venta, id del producto, categoría, precio, cantidad, fecha
@@ -128,7 +176,7 @@ def main():
         elif opcion == 'B':
             mostrar_productos_por_categoria(ventas)
         elif opcion == 'C':
-            print(f'Mostrar ventas por día')
+            mostrar_ventas_por_dia(ventas)
         elif opcion == 'D':
             calcular_total_ingresos(ventas)
         elif opcion == 'E':
