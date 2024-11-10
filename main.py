@@ -1,8 +1,8 @@
+import datetime
 
 def seleccionar_opcion_menu():
     opciones_menu = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     descripciones_menu = ['Cargar nueva venta', 'Mostrar cantidad de productos vendidos por categoría', 'Mostrar ventas por día', 'Mostrar total ingresos', 'Mostrar cantidad total de productos vendidos', 'Mostrar promedio de ingreso por día', 'Salir'] # eliminar venta?, modificar venta?
-
 
     for i in range(len(opciones_menu)):
         print(f'{opciones_menu[i]}: {descripciones_menu[i]}')
@@ -33,12 +33,30 @@ def mostrar_categorias(categorias):
         print(f'--{categorias[i]}')
 
 def validar_fecha(fecha):
-    #TODO: completar
-    return True
+    if len(fecha) != 10 or fecha[2] != '-' or fecha[5] != '-': #validación del formato de la fecha
+        print('El formato de la fecha ingresada no es correcto.')
+        return False
+    else:
+        fecha_lista = fecha.split('-') 
+        dia_ingresado = int(fecha_lista[0])
+        mes_ingresado = int(fecha_lista[1])
+        año_ingresado = int(fecha_lista[2])
+
+        if  1 <= mes_ingresado <= 12: #validación mes entre 1 y 12
+            cantidad_dias = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+            if not 1 <= dia_ingresado <=  cantidad_dias[mes_ingresado - 1]: # validación cantidad de días por mes, aplica a 2024 u otro año bisiesto
+                print('El día ingresado es inválido.')
+                return False
+            else:
+                return True
+        else:
+            print('El mes ingresado es inválido.')
+            return False
+        
 
 def cargar_ventas(ventas):
     categorias = obtener_categorias(ventas)
-    print('------------------------------------ \n Cargar nueva venta:')
+    print('------------------------------------ \nCargar nueva venta:')
 
     id_venta = ventas[-1][0] + 1 # tomo el último id de venta de la lista y le sumo 1
 
@@ -110,13 +128,13 @@ def main():
         elif opcion == 'B':
             mostrar_productos_por_categoria(ventas)
         elif opcion == 'C':
-            print(f'{opcion}')
+            print(f'Mostrar ventas por día')
         elif opcion == 'D':
             calcular_total_ingresos(ventas)
         elif opcion == 'E':
-            print(f'{opcion}')
+            print(f'Mostrar cantidad total de productos vendidos')
         elif opcion == 'F':
-            print(f'{opcion}')
+            print(f'Mostrar promedio de ingreso por día')
 
         opcion = seleccionar_opcion_menu()
 
