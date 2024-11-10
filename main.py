@@ -74,11 +74,15 @@ def cargar_ventas(ventas):
     precio = float(input('Precio del producto: '))
     precio = round(precio, 2) 
 
+    cantidad = int(input('Ingrese cantidad de unidades vendidas: '))
+    while cantidad < 1:
+        cantidad = int(input('Cantidad inválida, debe ser mayor a 0. Ingrese cantidad: '))
+
     fecha = input('Ingrese una fecha (en formato dd-mm-aaaa): ')
     while not validar_fecha(fecha):
         fecha = input('Ingrese una fecha (en formato dd-mm-aaaa): ')
 
-    venta = [id_venta, id_producto, categoria, precio, fecha]
+    venta = [id_venta, id_producto, categoria, precio, cantidad, fecha]
     ventas.append(venta)
 
     return ventas
