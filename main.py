@@ -1,3 +1,4 @@
+#Método que se ejecuta cada vez que quiera seleccionar una opción del menú principal
 def seleccionar_opcion_menu():
     opciones_menu = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     descripciones_menu = ['Cargar nueva venta', 'Mostrar cantidad de productos vendidos por categoría', 'Mostrar ventas por día', 'Mostrar total ingresos', 'Mostrar cantidad total de productos vendidos', 'Mostrar promedio de ingreso por día', 'Salir'] # eliminar venta?, modificar venta?
@@ -11,12 +12,14 @@ def seleccionar_opcion_menu():
 
     return opcion
 
+#Valida que el número de producto sea un número de cuatro cifras
 def validar_producto(id):
     while not (1000 <=  id <= 9999):
         id = int(input('Ingrese un código de producto válido. Debe ser un número de cuatro cifras: '))
 
     return id
 
+# Método para mostrar todas las categorías de las ventas realizadas
 def obtener_categorias(ventas):
     categorias = []
     for i in range(len(ventas)):
@@ -25,11 +28,13 @@ def obtener_categorias(ventas):
     
     return categorias
 
+# Método para mostrar las categorías enviadas por parámetro
 def mostrar_categorias(categorias):
     print('-Categorías: ')
     for i in range(len(categorias)):
         print(f'--{categorias[i]}')
 
+# Método que valida el formato de la fecha de la venta y que el día y mes sean válidos
 def validar_fecha(fecha):
     if len(fecha) != 10 or fecha[2] != '-' or fecha[5] != '-': #validación del formato de la fecha
         print('El formato de la fecha ingresada no es correcto.')
@@ -52,6 +57,7 @@ def validar_fecha(fecha):
             return False
         
 
+#Método utilizado para cargar una nueva venta en la lista
 def cargar_ventas(ventas):
     categorias = obtener_categorias(ventas)
     print('------------------------------------ \nCargar nueva venta:')
@@ -86,6 +92,7 @@ def calcular_productos_por_categoria(ventas, categoria):
             total_productos += venta[3]
     return total_productos
 
+# Método para imprimir los productos por categoría, la cual será ingresada por teclado
 def mostrar_productos_por_categoria(ventas):
     categorias = obtener_categorias(ventas)
     print('------------------------------------ \nMostrar productos vendidos por categoría: ')
@@ -108,6 +115,7 @@ def calcular_total_ingresos(ventas):
         total += precio * cantidad     
     print(f"------------------------------------ \nTotal de ingresos generados: {total}")
 
+# Método para filtrar en qué días se produjeron ventas
 def filtrar_dias(ventas):
     lista_dias = []
     for venta in ventas:
@@ -115,6 +123,7 @@ def filtrar_dias(ventas):
             lista_dias.append(venta[5])
     return lista_dias
 
+# Método para obtener las ventas realizadas en los días indicados
 def filtrar_ventas_por_dia(ventas, dias):
     lista_ventas = []
     for i in range(len(dias)):
@@ -124,6 +133,7 @@ def filtrar_ventas_por_dia(ventas, dias):
                 lista_ventas[i].append(venta)
     return lista_ventas
 
+# Método para mostrar por pantalla las ventas en un formato amigable
 def imprimir_ventas(lista_ventas):
     for venta in lista_ventas:
         print('   **********')
@@ -133,6 +143,7 @@ def imprimir_ventas(lista_ventas):
         print(f'   Precio: {venta[3]}')
         print(f'   Cantidad: {venta[4]}')
 
+# Método para mostrar las ventas por día. Se puede elegir entre un día en específico o bien mostrar todos
 def mostrar_ventas_por_dia(ventas):
     print(f"------------------------------------ \nVentas por día")
     opcion = input('¿Qúe desea hacer? \n1- Consultar todas las ventas por día\n2- Consultar ventas de un día en específico\nIngresar opción deseada (1 o 2): ' )
@@ -157,13 +168,15 @@ def mostrar_ventas_por_dia(ventas):
         else: 
             print('No hay ventas para la fecha ingresada.')
 
-
+# Método que muestra la cantidad de productos vendidos
 def mostrar_total_productos_vendidos(ventas):
     total = 0
     for venta in ventas:
         total += venta[4] 
     print(f"------------------------------------ \nTotal de productos vendidos: {total}")
 
+
+# Método que muestra los ingresos en cada uno de los días donde se registran ventas
 def mostrar_promedio_ingresos_por_dia(ventas):
     dias = filtrar_dias(ventas)
     ventas_por_dia = filtrar_ventas_por_dia(ventas, dias)
@@ -179,7 +192,8 @@ def mostrar_promedio_ingresos_por_dia(ventas):
     print(f'El promedio total entre los días con ventas es: {suma_promedios / len(dias)}')
 
 
-#PROGRAMA PRINCIPAL
+# PROGRAMA PRINCIPAL
+
 def main():
     # id de venta, id del producto, categoría, precio, cantidad, fecha
     ventas = [[1, 1000, 'Computación', 800000.00, 1, '01-11-2024'], 
@@ -207,5 +221,3 @@ def main():
 
 
 main()
-
-
