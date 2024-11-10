@@ -107,8 +107,7 @@ def calcular_total_ingresos(ventas):
     for venta in ventas:
         precio = venta[3]
         cantidad = venta[4]
-        total += precio * cantidad
-        
+        total += precio * cantidad     
     print(f"------------------------------------ \nTotal de ingresos generados: {total}")
 
 def filtrar_dias(ventas):
@@ -160,6 +159,29 @@ def mostrar_ventas_por_dia(ventas):
         else: 
             print('No hay ventas para la fecha ingresada.')
 
+
+def mostrar_total_productos_vendidos(ventas):
+    total = 0
+    for venta in ventas:
+        total += venta[4] 
+    print(f"------------------------------------ \nTotal de productos vendidos: {total}")
+
+def mostrar_promedio_ingresos_por_dia(ventas):
+    dias = filtrar_dias(ventas)
+    ventas_por_dia = filtrar_ventas_por_dia(ventas, dias)
+    suma_promedios = 0
+
+    for i in range(len(dias)):
+        suma = 0
+        for venta in ventas_por_dia[i]:
+            suma += venta[3] * venta[4]
+        promedio = suma / len(ventas_por_dia[i])
+        suma_promedios += promedio
+        print(f'Promedio ingresos {dias[i]}: {promedio}')
+    print(f'El promedio total entre los días con ventas es: {suma_promedios / len(dias)}')
+
+
+#PROGRAMA PRINCIPAL
 def main():
     # id de venta, id del producto, categoría, precio, cantidad, fecha
     ventas = [[1, 1000, 'Computación', 800000.00, 1, '01-11-2024'], 
@@ -180,10 +202,9 @@ def main():
         elif opcion == 'D':
             calcular_total_ingresos(ventas)
         elif opcion == 'E':
-            print(f'Mostrar cantidad total de productos vendidos')
+            mostrar_total_productos_vendidos(ventas)
         elif opcion == 'F':
-            print(f'Mostrar promedio de ingreso por día')
-
+            mostrar_promedio_ingresos_por_dia(ventas)
         opcion = seleccionar_opcion_menu()
 
 
