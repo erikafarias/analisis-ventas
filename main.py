@@ -1,7 +1,7 @@
 
 def seleccionar_opcion_menu():
     opciones_menu = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-    descripciones_menu = ['Cargar nueva venta', 'Mostrar productos por categoría', 'Mostrar ventas por día', 'Mostrar total ingresos', 'Mostrar total productos vendidos', 'Mostrar promedio de ingreso por día', 'Salir'] # eliminar venta?, modificar venta?
+    descripciones_menu = ['Cargar nueva venta', 'Mostrar cantidad de productos vendidos por categoría', 'Mostrar ventas por día', 'Mostrar total ingresos', 'Mostrar cantidad total de productos vendidos', 'Mostrar promedio de ingreso por día', 'Salir'] # eliminar venta?, modificar venta?
 
 
     for i in range(len(opciones_menu)):
@@ -35,7 +35,6 @@ def mostrar_categorias(categorias):
 def validar_fecha(fecha):
     #TODO: completar
     return True
-    
 
 def cargar_ventas(ventas):
     categorias = obtener_categorias(ventas)
@@ -63,6 +62,38 @@ def cargar_ventas(ventas):
 
     return ventas
 
+# Función para obtener el total de los productos vendidos segun la categoria a la que pertenezca 
+def calcular_productos_por_categoria(ventas, categoria):
+    total_productos = 0
+    for venta in ventas:
+        if venta[1] == categoria:
+            total_productos += venta[3]
+    return total_productos
+
+def mostrar_productos_por_categoria(ventas):
+    categorias = obtener_categorias(ventas)
+    print('------------------------------------ \nMostrar productos vendidos por categoría: ')
+    ver_categorias = input('¿Desea ver las categorías existentes? S/N: ' ).upper()
+    if ver_categorias == 'S':
+        mostrar_categorias(categorias)
+    categoria = input('Ingresar categoría: ')
+    if categoria not in categorias:
+        print('No hay productos para la categoría ingresada.')
+    else: 
+        cantidad = calcular_productos_por_categoria(ventas, categoria)
+        print(f'La cantidad de productos vendidos para la categoría de {categoria} es: {cantidad}')
+
+
+# Función para obtener el total de los ingresos 
+def calcular_total_ingresos(ventas):
+    total = 0
+    for venta in ventas:
+        precio = venta[2]
+        cantidad = venta[3]
+        total += precio * cantidad
+        
+    print(f"------------------------------------ \nTotal de ingresos generados: {total}")
+
 def main():
     # id de venta, id del producto, categoría, precio, cantidad, fecha
     ventas = [[1, 1000, 'Computación', 800000.00, 1, '01-11-2024'], 
@@ -77,11 +108,11 @@ def main():
         if opcion == 'A':
             ventas = cargar_ventas(ventas)
         elif opcion == 'B':
-            print(f'{opcion}')
+            mostrar_productos_por_categoria(ventas)
         elif opcion == 'C':
             print(f'{opcion}')
         elif opcion == 'D':
-            print(f'{opcion}')
+            calcular_total_ingresos(ventas)
         elif opcion == 'E':
             print(f'{opcion}')
         elif opcion == 'F':
