@@ -1,5 +1,3 @@
-import datetime
-
 def seleccionar_opcion_menu():
     opciones_menu = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     descripciones_menu = ['Cargar nueva venta', 'Mostrar cantidad de productos vendidos por categoría', 'Mostrar ventas por día', 'Mostrar total ingresos', 'Mostrar cantidad total de productos vendidos', 'Mostrar promedio de ingreso por día', 'Salir'] # eliminar venta?, modificar venta?
