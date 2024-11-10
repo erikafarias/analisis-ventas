@@ -88,7 +88,7 @@ def calcular_productos_por_categoria(ventas, categoria):
     total_productos = 0
     for venta in ventas:
         if venta[2] == categoria:
-            total_productos += venta[3]
+            total_productos += venta[4]
     return total_productos
 
 # Método para imprimir los productos por categoría, la cual será ingresada por teclado
