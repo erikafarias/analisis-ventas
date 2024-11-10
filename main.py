@@ -87,14 +87,14 @@ def cargar_ventas(ventas):
 def calcular_productos_por_categoria(ventas, categoria):
     total_productos = 0
     for venta in ventas:
-        if venta[1] == categoria:
+        if venta[2] == categoria:
             total_productos += venta[3]
     return total_productos
 
 # Método para imprimir los productos por categoría, la cual será ingresada por teclado
 def mostrar_productos_por_categoria(ventas):
     categorias = obtener_categorias(ventas)
-    print('------------------------------------ \nMostrar productos vendidos por categoría: ')
+    print('------------------------------------ \nMostrar cantidad de productos vendidos por categoría: ')
     ver_categorias = input('¿Desea ver las categorías existentes? S/N: ' ).upper()
     if ver_categorias == 'S':
         mostrar_categorias(categorias)
