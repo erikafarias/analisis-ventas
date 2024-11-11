@@ -1,7 +1,13 @@
 #Método que se ejecuta cada vez que quiera seleccionar una opción del menú principal
 def seleccionar_opcion_menu():
     opciones_menu = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-    descripciones_menu = ['Cargar nueva venta', 'Mostrar cantidad de productos vendidos por categoría', 'Mostrar ventas por día', 'Mostrar total ingresos', 'Mostrar cantidad total de productos vendidos', 'Mostrar promedio de ingreso por día', 'Salir'] # eliminar venta?, modificar venta?
+    descripciones_menu = ['Cargar nueva venta',
+                           'Mostrar cantidad de productos vendidos por categoría', 
+                           'Mostrar ventas por día', 
+                           'Mostrar total ingresos', 
+                           'Mostrar cantidad total de productos vendidos', 
+                           'Mostrar promedio de ingreso por día', 
+                           'Salir'] 
 
     print('MENU:')
     for i in range(len(opciones_menu)):
@@ -207,7 +213,7 @@ def main():
 
     opcion = seleccionar_opcion_menu()
     
-    while opcion != 'G': # en caso de agregar opciones de menú, modificar
+    while opcion != 'G': 
         if opcion == 'A':
             ventas = cargar_ventas(ventas)
         elif opcion == 'B':
